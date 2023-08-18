@@ -50,7 +50,7 @@ const Experience = ({ onChange }) => {
         id="description"
         name="descrtion"
         rows="4"
-        cols="50"
+        cols="5"
         onChange={(e) => {
           handleChildInputChange(e, "description");
         }}
