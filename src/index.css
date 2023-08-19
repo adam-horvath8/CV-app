@@ -52,7 +52,28 @@ form {
   border-radius: 15px;
   margin-bottom: 20px;
   box-shadow: 0px 0px 10px rgb(197, 197, 197);
-  max-width: 800px;
+}
+
+.heading-form {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.heading-form > button {
+  background-color: white;
+  padding: 5px;
+  color: black;
+  font-size: 1.3rem;
+  transform: rotateZ(90deg);
+  box-shadow: none;
+  margin-top: 15px;
+}
+
+.input-div {
+  flex-direction: column;
 }
 
 form > h1 {
@@ -68,6 +89,11 @@ textarea {
   margin: 5px 0px;
   background-color: var(--main-grey);
   width: minmax(10px, 500px);
+}
+
+.delete-div{
+  display: flex;
+  justify-content: space-between;
 }
 
 /* Template Section */
@@ -181,6 +207,11 @@ textarea {
   .template {
     min-width: 90vw;
   }
+
+  .item-info > p {
+    overflow: auto;
+    max-height: 300px;
+  }
 }
 
 @media (max-width: 1160px) {
@@ -188,4 +219,12 @@ textarea {
     padding: 0px;
     width: 100vw;
   }
+}
+
+.active {
+  display: flex;
+}
+
+.inactive {
+  display: none;
 }

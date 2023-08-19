@@ -5,7 +5,7 @@ function TemplateItem({ name, title, start, end, location, description }) {
     <div className="template-item">
       <div className="item-location">
         <div className="date-div">
-          <span>{start} - </span>
+          <span>{start} / </span>
           <span>{end}</span>
         </div>
         <span>{location}</span>
