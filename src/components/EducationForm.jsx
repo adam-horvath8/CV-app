@@ -1,7 +1,6 @@
 import { React, useState } from "react";
 import InputField from "./small-components/InputField";
 
-
 const Education = ({ onChange }) => {
   const handleChildInputChange = (e, inputName) => {
     const newValue = e.target.value;
@@ -9,27 +8,6 @@ const Education = ({ onChange }) => {
   };
 
   const [openInput, setOpenInput] = useState(false);
-
-  const [inputValues, setInputValues] = useState({
-    //Save values of the education form
-    school: "",
-    degree: "",
-    startDate: "",
-    endDate: "",
-    location: "",
-  });
-
-  const saveInputChange = (e, inputName) => {
-    const newValue = e.target.value;
-    setInputValues((prevValues) => ({
-      ...prevValues,
-      [inputName]: newValue,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   return (
     <form action="set">
@@ -44,43 +22,50 @@ const Education = ({ onChange }) => {
           <span>&#10151;</span>
         </button>
       </div>
-      
+
       <div className={`input-div ${openInput ? "active" : "inactive"}`}>
         <InputField
           label="School"
           type="text"
           onChange={(e) => {
             handleChildInputChange(e, "school");
-            saveInputChange(e);
           }}
         />
         <InputField
           label="Degree"
           type="text"
-          onChange={(e) => handleChildInputChange(e, "title")}
+          onChange={(e) => {
+            handleChildInputChange(e, "title");
+          }}
         />
         <InputField
           label="Start Date"
           type="date"
-          onChange={(e) => handleChildInputChange(e, "startDateEdu")}
+          onChange={(e) => {
+            handleChildInputChange(e, "startDateEdu");
+          }}
         />
         <InputField
           label="End Date"
           type="date"
-          onChange={(e) => handleChildInputChange(e, "endDateEdu")}
+          onChange={(e) => {
+            handleChildInputChange(e, "endDateEdu");
+          }}
         />
         <InputField
           label="Location"
           type="text"
-          onChange={(e) => handleChildInputChange(e, "locationEdu")}
+          onChange={(e) => {
+            handleChildInputChange(e, "locationEdu");
+          }}
         />
-        <div className="delete-div">
-          <button>Delete</button>
+        {/* <div className="delete-div">
+          <button type="button">Delete</button>
           <div className="submit-div">
-            <button>Cancel</button>
+            <button type="button">Cancel</button>
             <button>Submit</button>
           </div>
-        </div>
+        </div> */}
       </div>
     </form>
   );
