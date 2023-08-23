@@ -1,7 +1,7 @@
 import React from "react";
 import TemplateItem from "./small-components/TemplateItem";
 
-function CvTemplate({ inputValue }) {
+function CvTemplate({ inputValue, newTemplateItemEdu, newTemplateItemExp }) {
   return (
     <div className="template">
       <div className="template-top">
@@ -14,22 +14,31 @@ function CvTemplate({ inputValue }) {
       </div>
       <div className="template-bottom">
         <h2>Education</h2>
-        <TemplateItem
-          name={inputValue.school}
-          title={inputValue.title}
-          start={inputValue.startDateEdu}
-          end={inputValue.endDateEdu}
-          location={inputValue.locationEdu}
-        />
+        {newTemplateItemEdu.length > 0 &&
+          newTemplateItemEdu.map((item) => (
+            <TemplateItem
+              key={item.id} // Don't forget to add a unique key for each item in a list
+              name={item.school}
+              title={item.title}
+              start={item.startDateEdu}
+              end={item.endDateEdu}
+              location={item.locationEdu}
+            />
+          ))}
+
         <h2>Experience</h2>
-        <TemplateItem
-          name={inputValue.companyName}
-          title={inputValue.positionTitle}
-          start={inputValue.startDateExp}
-          end={inputValue.endDateExp}
-          location={inputValue.locationExp}
-          description={inputValue.description}
-        />
+        {newTemplateItemExp.length > 0 &&
+          newTemplateItemExp.map((item) => (
+            <TemplateItem
+              key={item.id}
+              name={item.companyName}
+              title={item.positionTitle}
+              start={item.startDateExp}
+              end={item.endDateExp}
+              location={item.locationExp}
+              description={item.description}
+            />
+          ))}
       </div>
     </div>
   );
