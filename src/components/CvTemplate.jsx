@@ -1,7 +1,8 @@
 import React from "react";
 import TemplateItem from "./small-components/TemplateItem";
 
-function CvTemplate({ inputValue, newTemplateItemEdu, newTemplateItemExp }) {
+function CvTemplate({ inputValue, educationForms, experienceForms }) {
+  console.log(experienceForms, "experienceForms");
   return (
     <div className="template">
       <div className="template-top">
@@ -14,21 +15,21 @@ function CvTemplate({ inputValue, newTemplateItemEdu, newTemplateItemExp }) {
       </div>
       <div className="template-bottom">
         <h2>Education</h2>
-        {newTemplateItemEdu.length > 0 &&
-          newTemplateItemEdu.map((item) => (
+        {educationForms.length > 0 &&
+          educationForms.map((item) => (
             <TemplateItem
               key={item.id} // Don't forget to add a unique key for each item in a list
               name={item.school}
-              title={item.title}
-              start={item.startDateEdu}
-              end={item.endDateEdu}
-              location={item.locationEdu}
+              title={item.degree}
+              start={item.startDate}
+              end={item.endDate}
+              location={item.location}
             />
           ))}
 
         <h2>Experience</h2>
-        {newTemplateItemExp.length > 0 &&
-          newTemplateItemExp.map((item) => (
+        {experienceForms.length > 0 &&
+          experienceForms.map((item) => (
             <TemplateItem
               key={item.id}
               name={item.companyName}

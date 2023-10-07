@@ -2,50 +2,39 @@ import React, { useState } from "react";
 import InputField from "./small-components/InputField";
 import { v4 as uuidv4 } from "uuid";
 
-const Education = ({ onChange, setNewTemplateItemEdu, }) => {
-  const handleChildInputChange = (e, inputName) => {
-    const newValue = e.target.value;
-    onChange(inputName, newValue);
-  };
-
+const Education = ({ form, onDelete, setEducationForms, index }) => {
   const [openInput, setOpenInput] = useState(false);
 
+  const [editLabel, setEditLabel] = useState("Submit");
+
+  console.log(form["school"], "this is ");
+
   const [submitData, setSubmitData] = useState({
-    school: "",
-    degree: "",
-    startDate: "",
-    endDate: "",
-    location: "",
+    school: form.school,
+    startDate: form.startDate,
+    endDate: form.endDate,
+    location: form.location,
+    degree: form.degree,
   });
 
-  const handleSubmitDataChange = (inputName, newValue) => {
-    setSubmitData((prevSubmitData) => ({
-      ...prevSubmitData,
-      [inputName]: newValue,
-    }));
+  const updateEducationForm = (updatedData) => {
+    setEducationForms((prevForms) => {
+      const updatedForms = [...prevForms];
+      updatedForms[index] = { ...updatedForms[index], ...updatedData };
+      return updatedForms;
+    });
   };
 
-  const handleSubmitData = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    // Update the specific form item with data from submitData
 
-    const newSubmitData = {
-      id: uuidv4(),
-      school: submitData.school,
-      title: submitData.degree,
-      startDateEdu: submitData.startDate,
-      endDateEdu: submitData.endDate,
-      locationEdu: submitData.location,
-    };
-
-    // Update the newTemplateItem state in the parent component
-    setNewTemplateItemEdu((prevTemplateItems) => [
-      ...prevTemplateItems,
-      newSubmitData,
-    ]);
+    updateEducationForm(submitData);
+    setEditLabel("Edit");
   };
 
   return (
-    <form action="set" onSubmit={handleSubmitData}>
+    <form action="set" onSubmit={(e) => handleSubmit(e)}>
       <div className="heading-form">
         <h1>
           Education{" "}
@@ -66,46 +55,44 @@ const Education = ({ onChange, setNewTemplateItemEdu, }) => {
           label="School"
           type="text"
           onChange={(e) => {
-            handleChildInputChange(e, "school");
-            handleSubmitDataChange("school", e.target.value);
+            setSubmitData({ ...submitData, school: e.target.value });
           }}
         />
         <InputField
           label="Degree"
           type="text"
           onChange={(e) => {
-            handleChildInputChange(e, "title");
-            handleSubmitDataChange("degree", e.target.value);
+            setSubmitData({ ...submitData, degree: e.target.value });
           }}
         />
         <InputField
           label="Start Date"
           type="date"
           onChange={(e) => {
-            handleChildInputChange(e, "startDateEdu");
-            handleSubmitDataChange("startDate", e.target.value);
+            setSubmitData({ ...submitData, startDate: e.target.value });
           }}
         />
         <InputField
           label="End Date"
           type="date"
           onChange={(e) => {
-            handleChildInputChange(e, "endDateEdu");
-            handleSubmitDataChange("endDate", e.target.value);
+            setSubmitData({ ...submitData, endDate: e.target.value });
           }}
         />
         <InputField
           label="Location"
           type="text"
           onChange={(e) => {
-            handleChildInputChange(e, "locationEdu");
-            handleSubmitDataChange("loacation", e.target.value);
+            setSubmitData({ ...submitData, location: e.target.value });
           }}
         />
         <div className="delete-div">
-          <button type="button">Delete</button>
+          <button type="button" onClick={() => onDelete(index)}>
+            Delete
+          </button>
+
           <div className="submit-div">
-            <button type="submit">Submit</button>
+            <button type="submit">{editLabel}</button>
           </div>
         </div>
       </div>

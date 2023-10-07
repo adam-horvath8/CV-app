@@ -1,60 +1,48 @@
 import { React, useState } from "react";
 import InputField from "./small-components/InputField";
-import { v4 as uuidv4 } from "uuid";
 
-const Experience = ({ onChange, setNewTemplateItemExp }) => {
-  const handleChildInputChange = (e, inputName) => {
-    const newValue = e.target.value;
-    onChange(inputName, newValue);
-  };
-
+const Experience = ({ setExperienceForms, onDelete, form, index }) => {
   const [openInput, setOpenInput] = useState(false);
 
+  const [editLabel, setEditLabel] = useState("Submit");
+
   const [submitData, setSubmitData] = useState({
-    companyName: "",
-    positionTitle: "",
-    startDateExp: "",
-    endDateExp: "",
-    locationExp: "",
-    description: "",
+    companyName: form.companyName,
+    positionTitle: form.positionTitle,
+    startDateExp: form.startDateExp,
+    endDateExp: form.endDateExp,
+    locationExp: form.locationExp,
+    description: form.description,
   });
 
-  const handleSubmitDataChange = (inputName, newValue) => {
-    setSubmitData((prevData) => ({
-      ...prevData,
-      [inputName]: newValue,
-    }));
+  const updateExperienceForm = (updatedData) => {
+    setExperienceForms((prevForms) => {
+      const updatedForms = [...prevForms];
+      updatedForms[index] = { ...updatedForms[index], ...updatedData };
+      return updatedForms;
+    });
   };
 
-  const handleSubmitData = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    // Update the specific form item with data from submitData
 
-    const newSubmitData = {
-      id: uuidv4(),
-      companyName: submitData.companyName,
-      positionTitle: submitData.positionTitle,
-      startDateExp: submitData.startDateExp,
-      endDateExp: submitData.endDateExp,
-      locationExp: submitData.locationExp,
-      description: submitData.description,
-    };
-
-    // Update the newTemplateItem state in the parent component
-    setNewTemplateItemExp((prevTemplateItems) => [
-      ...prevTemplateItems,
-      newSubmitData,
-    ]);
+    updateExperienceForm(submitData);
+    setEditLabel("Edit");
   };
 
   return (
-    <form action="set" onSubmit={handleSubmitData}>
+    <form action="set" onSubmit={(e) => handleSubmit(e)}>
       <div className="heading-form">
-        <h1>Experience</h1>
+        <h1>
+          Experience{" "}
+          <span className="edu-heading-name">{submitData.companyName}</span>
+        </h1>
         <button
-          type="button"
           onClick={() => {
             setOpenInput(!openInput);
           }}
+          type="button"
         >
           <span>&#10151;</span>
         </button>
@@ -62,60 +50,54 @@ const Experience = ({ onChange, setNewTemplateItemExp }) => {
 
       <div className={`input-div ${openInput ? "active" : "inactive"}`}>
         <InputField
-          label="Company Name"
+          label="Company"
           type="text"
           onChange={(e) => {
-            handleChildInputChange(e, "companyName");
-            handleSubmitDataChange("companyName", e.target.value);
+            setSubmitData({ ...submitData, companyName: e.target.value });
           }}
         />
         <InputField
-          label="Position Title"
+          label="Position"
           type="text"
           onChange={(e) => {
-            handleChildInputChange(e, "positionTitle");
-            handleSubmitDataChange("positionTitle", e.target.value);
+            setSubmitData({ ...submitData, positionTitle: e.target.value });
           }}
         />
         <InputField
           label="Start Date"
           type="date"
           onChange={(e) => {
-            handleChildInputChange(e, "startDateExp");
-            handleSubmitDataChange("startDateExp", e.target.value);
+            setSubmitData({ ...submitData, startDateExp: e.target.value });
           }}
         />
         <InputField
           label="End Date"
           type="date"
           onChange={(e) => {
-            handleChildInputChange(e, "endDateExp");
-            handleSubmitDataChange("endDateExp", e.target.value);
+            setSubmitData({ ...submitData, endDateExp: e.target.value });
           }}
         />
         <InputField
           label="Location"
           type="text"
           onChange={(e) => {
-            handleChildInputChange(e, "locationExp");
-            handleSubmitDataChange("locationExp", e.target.value);
+            setSubmitData({ ...submitData, locationExp: e.target.value });
           }}
         />
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          name="descrtion"
-          rows="4"
-          cols="5"
+        <InputField
+          label="Description"
+          type="text"
           onChange={(e) => {
-            handleChildInputChange(e, "description");
-            handleSubmitDataChange("description", e.target.value);
+            setSubmitData({ ...submitData, description: e.target.value });
           }}
         />
         <div className="delete-div">
-          <button type="button">Delete</button>
+          <button type="button" onClick={() => onDelete(index)}>
+            Delete
+          </button>
+
           <div className="submit-div">
-            <button type="submit">Submit</button>
+            <button type="submit">{editLabel}</button>
           </div>
         </div>
       </div>
