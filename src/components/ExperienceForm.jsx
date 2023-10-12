@@ -86,7 +86,9 @@ const Experience = ({ setExperienceForms, onDelete, form, index }) => {
         />
         <InputField
           label="Description"
-          type="text"
+          type="message"
+          rows="4"
+          cols="50"
           onChange={(e) => {
             setSubmitData({ ...submitData, description: e.target.value });
           }}
