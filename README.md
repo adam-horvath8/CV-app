@@ -10,7 +10,7 @@ live preview here: https://cv-super-maker.netlify.app
 
 ## Development
 
-Code is written in TypeScript. I am using React framework.
+Code is written in JavaScript. I am using React framework.
 
 ### Libraries, extensions and tools
 * ESLint
